@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -86,9 +84,9 @@ export default function WasteSortGame() {
 
   if (wasteItems.length > 0 && current >= wasteItems.length) {
     return (
-      <div className="text-center p-6">
-        <h2 className="text-2xl font-bold mb-4">You finished the game!</h2>
-        <p className="text-lg mb-4">Score: {score} / {wasteItems.length}</p>
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>You finished the game!</h2>
+        <p style={{ fontSize: "1.2rem", margin: "1rem 0" }}>Score: {score} / {wasteItems.length}</p>
         <p>Thanks for playing! 🎉</p>
       </div>
     );
@@ -97,23 +95,22 @@ export default function WasteSortGame() {
   const item = wasteItems[current];
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">Waste Sorting Game</h1>
-      <Card className="mb-6 text-center">
-        <CardContent className="p-6">
-          <p className="text-xl font-semibold mb-4">Sort this item:</p>
-          <img
-            src={item.image}
-            alt={item.name}
-            className="mx-auto h-32 object-contain mb-4"
-          />
-          <p className="text-lg">{item.name}</p>
-        </CardContent>
-      </Card>
+    <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
+      <h1 style={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center", marginBottom: "1.5rem" }}>
+        Waste Sorting Game
+      </h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div style={{ textAlign: "center", border: "1px solid #ccc", padding: "1rem", marginBottom: "1.5rem" }}>
+        <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>Sort this item:</p>
+        <img src={item.image} alt={item.name} style={{ height: "130px", objectFit: "contain", marginBottom: "1rem" }} />
+        <p style={{ fontSize: "1.1rem" }}>{item.name}</p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem" }}>
         {bins.map((bin) => (
-          <Button key={bin} onClick={() => handleDrop(bin)}>{bin}</Button>
+          <button key={bin} onClick={() => handleDrop(bin)} style={{ padding: "0.75rem", fontSize: "1rem", backgroundColor: "#e0e0e0", border: "none", borderRadius: "6px", cursor: "pointer" }}>
+            {bin}
+          </button>
         ))}
       </div>
 
@@ -121,15 +118,15 @@ export default function WasteSortGame() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-6 text-center"
+          style={{ marginTop: "1.5rem", textAlign: "center" }}
         >
           {feedback.type === "correct" ? (
-            <p className="text-green-600 text-lg flex items-center justify-center gap-2">
-              <CheckCircle className="w-5 h-5" /> {feedback.message}
+            <p style={{ color: "green", fontSize: "1.1rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem" }}>
+              <CheckCircle size={20} /> {feedback.message}
             </p>
           ) : (
-            <p className="text-red-600 text-lg flex items-center justify-center gap-2">
-              <XCircle className="w-5 h-5" /> {feedback.message}
+            <p style={{ color: "red", fontSize: "1.1rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem" }}>
+              <XCircle size={20} /> {feedback.message}
             </p>
           )}
         </motion.div>
